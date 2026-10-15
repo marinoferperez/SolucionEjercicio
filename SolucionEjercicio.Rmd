@@ -216,5 +216,31 @@ La intersección devuelve **58 animales comunes** entre los 62 de `mammals` y lo
 
 No obstante, como `intersect()` compara los nombres, las diferencias en la ortografía, como la vista anteriormente, no se están teniendo en cuenta aunque representen la misma especie.
 
+## 5. Usa `setdiff` para averiguar qué animales **no están** en ambos conjuntos. ¿Cuántos son ?. ¿Qué tipo de animales son?
+
+Para comprobar si realmente las especies no consideras comúnes lo son realmente o se debe únicamente a fallos de ortografía, `setdiff()`  va a devolver los elementos que pertenecen al primer conjunto, pero no al segundo.
+
+```{r}
+# animales de mammals que no aparecen en Animals2
+solo_mammals <- setdiff(rownames(mammals), rownames(Animals2))
+solo_mammals
+length(solo_mammals)
+```
+```{r}
+# animales de Animals2 que no aparecen en mammals
+solo_animals2 <- setdiff(rownames(Animals2), rownames(mammals))
+solo_animals2
+length(solo_animals2)
+```
+
+Los resultados confirman que, por un lado, las 3 especies extra de **Animals2** son dinosaurios:
+
+* **"Dipliodocus"**
+* **"Brachiosaurus"**
+* **"Triceratops"**
+
+y que, además, si comparamos las 4 restantes de **Animals2** con las de **mammals**, se deben a casos que representan la misma especie pero con diferencias en su escritura. 
+
+
 
 
