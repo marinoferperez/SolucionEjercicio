@@ -77,7 +77,7 @@ knit_hooks$set(inline = function(x) {
 
 # ANÁLISIS DE LOS CONJUNTOS DE DATOS mammals Y Animals2
 
-## 1. Mira la las características de ambos conjuntos usando la ayuda.
+## 1. Mira las características de ambos conjuntos usando la ayuda.
 
 En este primer apartado, se trabaja con dos conjuntos de datos ya alojados en R Studio que recogen información de distintas especies de mamíferos. El **objetivo** es utilizar el manual de R Studio para conocer las características y comparar ambos.
 
@@ -155,7 +155,7 @@ head(Animals2)
 ```
 A simple vista, las filas de ambos conjuntos no coinciden. **mammals** comienza con "Arctic Fox" mientras que **Animals2** comienza con "Mountain beaver". Además, este último contiene un dinosaurio ("Dipliodocus"), lo que confirma lo mencionado anteriormente y se corresponde con una de esas 3 especies que añade.
 
-Respecto a los valores numéricos de cada variable, no se observa un preprocesado de datos, como, por ejemplo, una estandarización o normalización (0 - 1).
+Respecto a los valores numéricos de cada variable, los valores mostrados no parecen estar normalizados entre 0 y 1.
 
 ```{r}
 tail(mammals)
@@ -199,7 +199,7 @@ En las filas, se observa que ambos conjuntos comparten muchas especies entre sí
 Con `colnames()`, se confirma otra vez que las variables son las mismas.
 
 
-## 4. Usa la función `intersect` y almacena en la variable `commonAnimals` los aminales que aparezcan en ambos conjuntos
+## 4. Usa la función `intersect` y almacena en la variable `commonAnimals` los animales que aparezcan en ambos conjuntos
 
 En este apartado el objetivo es aplicar la operación de **intersección** entre conjuntos para identificar que animales forman parte de ambos dataset. Como las **funciones del apartado anterior** recogen los nombres de las filas, las utilizamos.
 
@@ -233,14 +233,26 @@ solo_animals2
 length(solo_animals2)
 ```
 
-Los resultados confirman que, por un lado, las 3 especies extra de **Animals2** son dinosaurios:
+Se obtienen **4** nombres exclusivos de **mammals** y **7** de **Animals2**, es decir, **11** nombres que **no coinciden exactamente.**
 
-* **"Dipliodocus"**
-* **"Brachiosaurus"**
-* **"Triceratops"**
+En los exclusivos de **Animals2** se confirma que, aunque ya se había identificado a "Dipliodocus" como especie extra, "Brachiosaurus" y "Triceratops" son las dos restantes, tambien dinosaurios.
 
-y que, además, si comparamos las 4 restantes de **Animals2** con las de **mammals**, se deben a casos que representan la misma especie pero con diferencias en su escritura. 
+## 6. Determina las **diferencia** entre los animales que no aparecen en ambos conjuntos.
 
+Los resultados anteriores del apartado anterior muestran que no todas las diferencias entre los nombres representan animales distintos.
 
+Si comparamos los restantes de **Animals2** con los de **mammals**, obviando los dinosaurios, los nombres muestran diferencias ortográficas, a excepción de `Mole rat` y `Mole`, que, tras hacer una búsqueda, parecen ser animales distintos. Sin embargo, si se comprueba su peso cerebral y corporal, los **registros** recogidos son **idénticos**, por lo que podría considerarse que, en **Animals2**, faltó por especificar la especie correctamente.
+
+```{r}
+rbind(mammals["Mole rat", ], Animals2["Mole", ])
+```
+
+El resto de especies con diferencias ortográficas también presentan mismo peso para ambas variables:
+
+```{r}
+rbind(mammals["Arctic fox", ], Animals2["Artic fox", ])
+rbind(mammals["Arctic ground squirrel", ], Animals2["Artic ground squirrel", ])
+rbind(mammals["Patas monkey", ], Animals2["Potar monkey", ])
+```
 
 
