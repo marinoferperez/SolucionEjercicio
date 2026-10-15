@@ -199,4 +199,22 @@ En las filas, se observa que ambos conjuntos comparten muchas especies entre sí
 Con `colnames()`, se confirma otra vez que las variables son las mismas.
 
 
+## 4. Usa la función `intersect` y almacena en la variable `commonAnimals` los aminales que aparezcan en ambos conjuntos
+
+En este apartado el objetivo es aplicar la operación de **intersección** entre conjuntos para identificar que animales forman parte de ambos dataset. Como las **funciones del apartado anterior** recogen los nombres de las filas, las utilizamos.
+
+```{r}
+commonAnimals <- intersect(rownames(mammals), rownames(Animals2))
+length(commonAnimals)
+```
+
+```{r}
+commonAnimals
+```
+
+La intersección devuelve **58 animales comunes** entre los 62 de `mammals` y los 65 de `Animals2`. Por tanto, la mayoría de las especies aparecen en ambos conjuntos.
+
+No obstante, como `intersect()` compara los nombres, las diferencias en la ortografía, como la vista anteriormente, no se están teniendo en cuenta aunque representen la misma especie.
+
+
 
