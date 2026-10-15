@@ -51,6 +51,30 @@ language:
     solution: 'Solución. '
 ---
 
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+
+
+# CONFIGURACIÓN GENERAL
+library(knitr)
+options(width = 100)
+
+# Opciones generales de los chucks. Se utilizarán salvo cambios en el chunk
+opts_chunk$set(echo=F, message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 200, tidy = F, cache.path = '.cache/', fig.path = './figura/')
+
+# Opciones generales de dígitos cuando se incluyen tablas
+#options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+#knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
 # ANÁLISIS DE LOS CONJUNTOS DE DATOS mammals Y Animals2
 
 ## 1. Mira la las características de ambos conjuntos usando la ayuda.
@@ -102,3 +126,56 @@ No obstante, aunque está relacionado con **mammals**, incluye 3 especies que no
 ### CONCLUSIONES
 
 Los dos datasets miden lo mismo, y bajo las mismas unidades de medida, por lo que compararlos será más sencillo.
+
+
+## 2. Usa las funciones `dim`, `head`, `tail`, `str` para una primera visión de los conjuntos de datos.
+
+En este apartado se quiere conocer el tamaño, la estructura y algunos registros de los dos datasets mediante las funciones indicadas.
+
+### DIMENSIONES
+
+Se utiliza `dim()` para conocer el número de instancias (filas) y variables (columnas) que contiene cada conjunto de datos.
+
+```{r}
+dim(mammals)
+dim(Animals2)
+```
+
+La función devuelve el número de filas (**especies**) y el número de columnas (**variables**), que son `body` y `brain`.
+
+A simple vista, se confirma que **Animals2** contiene 3 instancias más que **mammals**, que según la ayuda, no se corresponden con mamíferos.
+
+### VISUALIZACIÓN DE REGISTROS
+
+`head()` y `tail()` permiten visualizar algunas instancias sin necesidad de mostrar el dataset completo, por defecto, las 6 primeras y las 6 últimas respectivamente.
+
+```{r}
+head(mammals)
+head(Animals2)
+```
+A simple vista, las filas de ambos conjuntos no coinciden. **mammals** comienza con "Arctic Fox" mientras que **Animals2** comienza con "Mountain beaver". Además, este último contiene un dinosaurio ("Dipliodocus"), lo que confirma lo mencionado anteriormente y se corresponde con una de esas 3 especies que añade.
+
+Respecto a los valores numéricos de cada variable, no se observa un preprocesado de datos, como, por ejemplo, una estandarización o normalización (0 - 1).
+
+```{r}
+tail(mammals)
+tail(Animals2)
+```
+
+Sin embargo, las seis últimas filas coinciden tanto en las especies como en sus valores de peso corporal y cerebral.
+
+### ESTRUCTURA DATASET
+
+Por último, se utiliza la función `str()` para examinar la estructura de ambos conjuntos de datos y comprobar el tipo de las variables que contienen.
+
+```{r}
+str(mammals)
+str(Animals2)
+```
+Ambos conjuntos son de tipo `data.frame` y contienen dos variables numéricas (`body` y `brain`), aunque el número de registros no es el mismo.
+
+
+
+
+
+
